@@ -170,7 +170,7 @@ include "koneksi.php";
       }
 
       #article{
-        background-color: #ffffff;
+        background-color:rgb(255, 255, 255);
       }
 
       .card{
@@ -178,7 +178,7 @@ include "koneksi.php";
       }
 
       .card img{
-        height: 30%;
+        height: 60%;
       }
 
       .card-text{
@@ -191,11 +191,11 @@ include "koneksi.php";
       }
 
       #gallery .container-fluid{
-        background-color: #C6E2F3;
+        background-color:rgb(176, 239, 255);
       }
 
       footer{
-        background-color:  #b9f6ff;
+        background-color:  rgb(255, 255, 255);
       }
 
       footer a{
@@ -468,40 +468,56 @@ include "koneksi.php";
   </div>
 </section>
 <!-- article end -->
-    <!--gallery begin-->
-    <section id="gallery" class="text-center p-5">
-        <div class="container">
-            <h1 class="fw-bold display-4 pb-3">Gallery</h1>
-            <div id="carouselExample" class="carousel slide">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="https://imgcdn.stablediffusionweb.com/2024/4/20/1f56e89f-3b54-4490-a3c9-45ac6c2e5b1c.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="https://img.freepik.com/free-photo/anime-style-mythical-dragon-creature_23-2151112867.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="https://jio-rockers.com/wp-content/uploads/2024/08/Anime-Wekwakpraui-Wallpaper-1024x574.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="https://getlivewall.com/wp-content/uploads/2024/09/Silver-Dragon-4K-getlivewall.com-thumbnail.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="https://moewalls.com/wp-content/uploads/2023/10/samurai-vs-shadow-dragon-thumb-364x205.jpg" class="d-block w-100" alt="...">
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
+   <!-- gallery begin -->
+  <section id="gallery" class="text-center p-5 bg-danger-subtle">
+    <div class="container">
+      <h1 class="fw-bold display-4 pb-3 pt-5">Gallery</h1>
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <?php
+          // Query untuk mengambil data dari tabel gallery
+          $sql2 = "SELECT * FROM gallery ORDER BY tanggal DESC";
+          $hasil2 = $conn->query($sql2);
+
+          $active_class = "active"; // Kelas active untuk item pertama
+
+          if ($hasil2->num_rows > 0) {
+            while ($row = $hasil2->fetch_assoc()) {
+              $image_file = $row['gambar']; // Mengambil nama file dari kolom gambar
+              $image_url = "images/" . $image_file; // Gabungkan dengan path folder img
+              echo '
+                        <div class="carousel-item ' . $active_class . '">
+                            <img src="' . $image_url . '" class="d-block w-100 " alt="Gallery Image" />
+                        </div>';
+              $active_class = ""; // Hapus kelas active untuk item berikutnya
+            }
+          } else {
+            echo '<div class="carousel-item active">
+                            <p>No images available in the gallery.</p>
+                        </div>';
+          }
+          ?>
         </div>
-    </section>
-    <!--gallery end-->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <!-- gallery end -->
     <!--schedule begin-->
     <!--Schedule begin-->
   <section id="schedule" class="text-center p-5">
@@ -585,21 +601,24 @@ include "koneksi.php";
         </div>
       </div>
     </div>
+  </section>
     <!--schedule end-->
     <!--about me begin-->
     <!-- Profil Section -->
 <section id="aboutme" class="profil text-center p-5 bg-danger-subtle text-sm-start">
+  <div class=container>
   <div class="d-sm-flex flex-sm-row align-items-center justify-content-center">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRY8DQ5_6yeWRDUSkqJOwKmgT_qVRP_STGYcOMxS7gAcsLYxP2R0tBw14ncVCJ8L25c1g&usqp=CAU"
       class="foto img-fluid rounded-circle" width="300" height="300" style="object-fit: cover; border-radius: 50%;">
     <div class="ms-4">
-      <div class="ms-4 ">
+      <div class="ms-4">
         <p>A11.2023.14932</p>
-        <h1><strong>Yudhistira Mahendra Herianto</strong></h1>
+        <h3><strong>Yudhistira Mahendra Herianto</strong></h3>
         <p>Program Studi Teknik Informatika</p>
         <p><a href="https://dinus.ac.id" class="link text-dark" style="text-decoration: none;"><strong>Udinus Dian Nuswantoro</strong></a></p>
       </div>
     </div>
+  </div>
   </div>
 </section>
     <!--footer begin-->
